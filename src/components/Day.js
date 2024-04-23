@@ -4,6 +4,12 @@ import React from 'react'
 
 
 export default function Day({ day, rowIdx }) {
+  const moonPhase = day.moonPhase || {
+    fraction: 0,
+    phase: 'null',
+    angle: 'null',
+    date: null,
+  }
   function getCurrentDayClass() {
     return day.format('DD-MM-YY') === dayjs().format('DD-MM-YY') ? 'bg-blue-600 text-white rounded-full w-7' : '';
   }
@@ -20,6 +26,8 @@ export default function Day({ day, rowIdx }) {
           {day.format('DD')}
         </p>
       </header>
+      <p className="text-xs">{moonPhase.fraction.toFixed(2)}</p>
+      <p className="text-xs">{moonPhase.phase}</p>
     </div>
   )
 }
