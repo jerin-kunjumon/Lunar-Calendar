@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 import React from 'react'
+import "react-calendar/dist/Calendar.css";
+import { Moon, Hemisphere } from "lunarphase-js";
 
 
 
@@ -28,6 +30,11 @@ export default function Day({ day, rowIdx }) {
       </header>
       <p className="text-xs">{moonPhase.fraction.toFixed(2)}</p>
       <p className="text-xs">{moonPhase.phase}</p>
+      <small style={{ display: "block" }}>
+              {Moon.lunarPhaseEmoji(new Date(day), Hemisphere.NORTHERN)}{" "}
+              
+              {Math.round(Moon.lunarAge(new Date(day), Hemisphere.NORTHERN))}
+            </small>
     </div>
   )
 }

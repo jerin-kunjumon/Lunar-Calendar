@@ -10,12 +10,12 @@ export function getMonth(month = dayjs().month()) {
       currentMonthCount++
       const day = dayjs(new Date(year, month, currentMonthCount))
       const moonIllumination = suncalc.getMoonIllumination(day.toDate())
-      const phase = Math.round(moonIllumination.fraction * 20) / 20
+      const phase = Math.round(moonIllumination.fraction * 100) / 100
       const angle = moonIllumination.angle > 0? 'Waxing' : 'Waning'
       day.moonPhase = {
         fraction: moonIllumination.fraction,
         angle: moonIllumination.angle,
-        phase: phase ===0 ?'No Moon':(angle === 'Waxing' && phase <= 0.25)? 'Waxing Crescent' : (angle === 'Waxing' && phase <= 0.5)? 'First Quarter' : (angle === 'Waxing' &&phase <= 0.95)? 'Waxing Gibbous'  : (angle === 'Waning' && phase <= 0.25)? 'Waning Crescent' : angle === 'Waning' && phase <= 0.5? 'Last Quarter' :angle === 'Waning' &&  phase <= 0.95? 'Waning Gibbous' : 'Full Moon'
+        phase: phase ===0 ?'No Moon':(angle === 'Waxing' && phase <= 0.25)? 'Waxing Crescent' : (angle === 'Waxing' && phase <= 0.5)? 'First Quarter' : (angle === 'Waxing' &&phase <= 0.99)? 'Waxing Gibbous'  : (angle === 'Waning' && phase <= 0.25)? 'Waning Crescent' : angle === 'Waning' && phase <= 0.5? 'Last Quarter' :angle === 'Waning' &&  phase <= 0.99? 'Waning Gibbous' : 'Full Moon'
       }
       return day
     })
