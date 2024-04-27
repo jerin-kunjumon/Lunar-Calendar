@@ -3,9 +3,16 @@ import logo from '../assets/logo.png'
 import GlobalContext from '../context/GlobalContext'
 import dayjs from "dayjs";
 
+import { useNavigate } from "react-router-dom";
+
+
 
 export default function CalendarHeader() {
   const {monthIndex,setMonthIndex} = useContext(GlobalContext)
+  const navigate = useNavigate();
+  const signinSignupPage  = () => {
+    navigate("/signinSignup");
+  };
 
   function handlePrevMonth(){
     setMonthIndex(monthIndex - 1);
@@ -17,7 +24,8 @@ export default function CalendarHeader() {
     setMonthIndex(monthIndex === dayjs().month() ? monthIndex + Math.random(): dayjs().month())
   }
   return (
-    <header className='px-4 py-2 flex items-center'>
+    <header className='px-4 py-2 flex justify-between'>
+      <div className='flex items-center'>
        <img src={logo} alt="calendar" className='mr-2 w-12 h-12'/>
        <h1 className='mr-10 text-xl text-gray-500 font-bold'>Calendar</h1>
        <button onClick={handleRest} className="border rounded py-2 px-4 mr-5">
@@ -36,6 +44,13 @@ export default function CalendarHeader() {
        <h2 className='ml-4 text-xl text-gray-500 font-bold'>
           {dayjs(new Date(dayjs().year(), monthIndex)).format("MMMM YYYY")}
        </h2>
+       </div>
+       <button >
+        Sign In
+       </button>
+       <button onClick={signinSignupPage}>
+        Sign Up
+       </button>
     </header>
   )
 }
