@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const SigninSignup = () => {
   const navigate = useNavigate();
   const homePage = () => {
-    navigate("/home");
+    navigate("/");
   };
 
   const [action, setAction] = useState("Sign Up");
