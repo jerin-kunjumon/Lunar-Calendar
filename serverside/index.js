@@ -74,4 +74,26 @@ mongoose.connect(mongoUrl, {
       res.status(500).send('Error saving data');
     });
   });
+
+  app.post('/api/saveEvent', async (req, res) => {
+    const newEvent = new UserModel.EventModel({
+      savedEvents : req.body.savedEvents
+    })
+    newEvent.save().then(data => {
+      console.log('Data saved successfully:', data);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  });
+
+  app.get('/api/getEvent', async (req, res) => {
+    try {
+      const allEvents = await UserModel.EventModel.find();
+      res.status(200).json(allEvents)
+    } catch (error) {
+      console.error(err);
+      res.status(500).send('Error fetching quotes');
+    }
+  })
   

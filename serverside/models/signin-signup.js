@@ -17,4 +17,13 @@ const UserSchema = new Schema({
 })
 
 const UserModel = mongoose.model("calendar events user", UserSchema)
-module.exports = UserModel
+
+const EventSchema = new Schema({
+    savedEvents : {
+        type: Array
+    }
+})
+
+const EventModel = mongoose.model("calendar events", EventSchema)
+
+module.exports = {UserModel, EventModel}
