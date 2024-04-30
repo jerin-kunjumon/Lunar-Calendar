@@ -4,15 +4,30 @@ import GlobalContext from '../context/GlobalContext'
 import dayjs from "dayjs";
 
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 
 
 export default function CalendarHeader() {
-  const {monthIndex,setMonthIndex} = useContext(GlobalContext)
+  const {monthIndex,setMonthIndex, showSignIn, setShowSignIn} = useContext(GlobalContext)
   const navigate = useNavigate();
-  const signinSignupPage  = () => {
-    navigate("/signinSignup");
+  const signupPage  = () => {
+    navigate("/Signup");
   };
+  const loginPage  = () => {
+    navigate("/Login");
+  };
+
+  const logout = () => {
+    axios.post("http://localhost:3000/api/users/logout")
+            .then((response) => {
+              alert("Logout Successful");
+                setShowSignIn(true)
+            })
+            .catch((error) => {
+                console.error("There was an error!", error);
+            });
+  }
 
   function handlePrevMonth(){
     setMonthIndex(monthIndex - 1);
@@ -45,12 +60,18 @@ export default function CalendarHeader() {
           {dayjs(new Date(dayjs().year(), monthIndex)).format("MMMM YYYY")}
        </h2>
        </div>
-       <button >
-        Sign In
-       </button>
-       <button onClick={signinSignupPage}>
-        Sign Up
-       </button>
+       {showSignIn === true ? (
+       <><button onClick={loginPage}>
+          Login
+        </button><button onClick={signupPage}>
+            Sign Up
+          </button></>
+       ):
+       (<>
+       <button onClick={logout}>
+        Logout
+        </button></>)
+      }
     </header>
   )
 }

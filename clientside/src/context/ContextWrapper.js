@@ -1,6 +1,7 @@
 import React, {useEffect, useMemo, useReducer, useState} from 'react'
 import GlobalContext from './GlobalContext'
 import dayjs from 'dayjs'
+import axios from 'axios'
 
 function savedEventsReducer(state, {type, payload}){
   switch (type) {
@@ -15,9 +16,12 @@ function savedEventsReducer(state, {type, payload}){
   }
 }
 
-function initEvents(){
+ function initEvents() {
+
   const storageEvents = localStorage.getItem('savedEvents')
-  const parsedEvents = storageEvents ? JSON.parse(storageEvents) : []
+  
+   console.log(storageEvents,"Storageevents")
+  const parsedEvents = storageEvents!=='undefined' ? JSON.parse(storageEvents) : []
   return parsedEvents
 }
 
@@ -30,15 +34,20 @@ export default function ContextWrapper(props) {
     const [showEventModal, setShowEventModal] = useState(false)
     const [selectedEvent, setSelectedEvent] = useState(null)
     const [labels, setLabels] = useState([])
+
+    const[showSignIn, setShowSignIn] = useState(true)
+
     //Second param of reducer is initial value
     const [savedEvents, dispatchCalEvent] = useReducer(savedEventsReducer, [], initEvents)
     const filteredEvents = useMemo(() => {
-      return savedEvents.filter(evt => labels
-        .filter((lbl) => lbl.checked).map(lbl => lbl.label).includes(evt.label));
+
+        return savedEvents.filter(evt => labels
+            .filter((lbl) => lbl.checked).map(lbl => lbl.label).includes(evt.label));
     }, [savedEvents, labels])
 
     useEffect(()=>{
       localStorage.setItem('savedEvents', JSON.stringify(savedEvents))
+      
     },[savedEvents])
 
     useEffect(()=>{
@@ -73,7 +82,7 @@ export default function ContextWrapper(props) {
     <GlobalContext.Provider value={{monthIndex,setMonthIndex,smallCalendarMonth,setSmallCalendarMonth,
     daySelected, setDaySelected, showEventModal, setShowEventModal, dispatchCalEvent,
     savedEvents, selectedEvent, setSelectedEvent, setLabels, labels, updateLabel
-    , filteredEvents}}>
+    , filteredEvents, showSignIn, setShowSignIn}}>
         {props.children}
     </GlobalContext.Provider>
   )

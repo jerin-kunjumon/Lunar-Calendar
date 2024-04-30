@@ -2,6 +2,8 @@ import './App.css';
 import SigninSignup from './pages/SigninSignup/SigninSignup';
 import Calendar from './pages/Calendar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Signup from './pages/SigninSignup/Signup';
+import Login from './pages/SigninSignup/Login';
 
 function App() {
 
@@ -16,8 +18,13 @@ function App() {
  
                     <Route
                         exact
-                        path="/signinSignup"
-                        element={<SigninSignup/>}
+                        path="/Signup"
+                        element={<Signup/>}
+                    />
+                    <Route
+                        exact
+                        path="/Login"
+                        element={<Login/>}
                     />
                 </Routes >
             </Router>

@@ -3,6 +3,7 @@ import User from '../models/userModel.js'
 import generateToken from "../utils/generateToken.js";
 
 const authUser = asyncHandler (async(req,res) => {
+    
     const { email, password} = req.body;
 
     const user = await User.findOne({email});

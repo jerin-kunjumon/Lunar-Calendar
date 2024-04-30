@@ -14,7 +14,7 @@ export default function Day({ day, rowIdx }) {
     date: null,
   }
   const [dayEvents, setDayEvents] = useState([])
-  const {setDaySelected, setShowEventModal, filteredEvents, setSelectedEvent} = useContext(GlobalContext)
+  const {showSignIn,setDaySelected, setShowEventModal, filteredEvents, setSelectedEvent} = useContext(GlobalContext)
   
   useEffect(() => {
     const events = filteredEvents.filter(evt => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY"))
@@ -43,14 +43,15 @@ export default function Day({ day, rowIdx }) {
         setDaySelected(day)
         setShowEventModal(true);
       }}>
-        {dayEvents.map((evt,idx)=>(
+        {showSignIn===false?(dayEvents.map((evt,idx)=>(
           <div 
           key={idx}
           onClick={() => setSelectedEvent(evt)}
           className={`bg-${evt.label}-200 p-1 mr-3 text-gray-600 text-sm rounded mb-1 truncate`}>
             {evt.title}
           </div>
-        ))}
+        ))
+      ):(<></>)}
       </div>
       <small style={{ display: "block" }}>
               {Moon.lunarPhaseEmoji(new Date(day), Hemisphere.NORTHERN)}{" "}
