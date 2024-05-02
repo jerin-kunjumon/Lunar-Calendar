@@ -39,7 +39,7 @@ const Signup = () => {
         axios
             .post("http://localhost:3000/api/users/signup", formData)
             .then((response) => {
-                setShowSignIn(true)
+                setShowSignIn(false)
                 calendarPage();
                 console.log(response.data);
             })
@@ -86,6 +86,8 @@ const Signup = () => {
                                 onChange={handleChange}
                             />
                         </div>
+                    {errors.name && <div className="m-auto">{errors.name}</div>}
+
                     
 
                     <div className="input">

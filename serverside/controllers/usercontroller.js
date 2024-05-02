@@ -17,6 +17,7 @@ const authUser = asyncHandler (async(req,res) => {
         });
     }else{
         res.status(401);
+        alert("Invalid email or password");
         throw new Error('Invalid email or password');
     }
 });
@@ -29,6 +30,7 @@ const registerUser = asyncHandler (async(req,res) => {
 
     if(userExists){
         res.status(400);
+        alert("User already exists");
         throw new Error('User already exists');
     }
 
@@ -49,6 +51,7 @@ const registerUser = asyncHandler (async(req,res) => {
         });
     }else{
         res.status(400);
+        alert("Invalid user data");
         throw new Error('Invalid user data');
     }
 });

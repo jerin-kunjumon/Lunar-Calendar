@@ -61,14 +61,17 @@ export default function CalendarHeader() {
        </h2>
        </div>
        {showSignIn === true ? (
-       <><button onClick={loginPage}>
+       <div>
+        <button className='border p-2 rounded-full shadow-md hover:shadow-2xl me-4' onClick={loginPage}>
           Login
-        </button><button onClick={signupPage}>
+        </button>
+        <button className='border p-2 rounded-full shadow-md hover:shadow-2xl' onClick={signupPage}>
             Sign Up
-          </button></>
+          </button>
+          </div>
        ):
        (<>
-       <button onClick={logout}>
+       <button className='border p-2 rounded-full shadow-md hover:shadow-2xl' onClick={logout}>
         Logout
         </button></>)
       }
