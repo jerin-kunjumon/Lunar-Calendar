@@ -9,11 +9,13 @@ const authUser = asyncHandler (async(req,res) => {
     const user = await User.findOne({email});
 
     if(user && (await user.matchPassword(password))){
-        generateToken(res,user._id);
+        const token = generateToken(res,user._id);
+        console.log(token)
         res.json({
             _id: user._id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            token : token
         });
     }else{
         res.status(401);
@@ -100,7 +102,7 @@ const updateUserProfile = asyncHandler (async(req,res) => {
         res.status(404);
         throw new Error('User not found');
     }
-});
+    });
 
 export {authUser,
 registerUser,

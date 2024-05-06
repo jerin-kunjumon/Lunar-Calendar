@@ -9,7 +9,7 @@ import GlobalContext from "../../context/GlobalContext";
 
 const Login = () => {
 
-    const { setShowSignIn } = useContext(GlobalContext)
+    const { setShowSignIn, setUserName } = useContext(GlobalContext)
     const navigate = useNavigate();
     const calendarPage = () => {
         navigate("/");
@@ -36,9 +36,11 @@ const Login = () => {
             .post("http://localhost:3000/api/users/login", formData)
             .then((response) => {
                 alert("Login Successful");
-                setShowSignIn(false)
-                calendarPage();
-                console.log(response.data);
+                console.log(response);
+                    
+                   
+                        setShowSignIn(false)
+                        calendarPage();
             })
             .catch((error) => {
                 console.error("There was an error!", error);

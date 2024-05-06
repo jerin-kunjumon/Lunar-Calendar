@@ -6,13 +6,29 @@ import Sidebar from '../components/Sidebar';
 import Month from '../components/Month';
 import GlobalContext from '../context/GlobalContext';
 import EventModal from '../components/EventModal';
+import axios from "axios";
+
 
 const Calendar = () => {
     const [currentMonth, setCurrentMonth] = useState(getMonth())
-    const { monthIndex, showEventModal } = useContext(GlobalContext)
+    const { monthIndex, showEventModal, setShowSignIn } = useContext(GlobalContext)
     useEffect(() => {
         console.log(monthIndex)
         setCurrentMonth(getMonth(monthIndex));
+
+        axios.get("http://localhost:3000/api/users/profile", {
+            withCredentials:true,
+            // headers: {
+            //     Authorization: `Bearer ${response.data.token}`
+            //   }
+            }).then((response) => {
+                // console.log(response.data,"$dt")
+                // setUserName(response.data.name)
+                setShowSignIn(false)
+            })
+            .catch((error) => {
+                console.error("There was an error!", error);
+            });
     }, [monthIndex]);
     return (
         <React.Fragment>
@@ -24,7 +40,6 @@ const Calendar = () => {
                     <Month month={currentMonth} />
                 </div>
             </div>
-
         </React.Fragment>
     )
 }

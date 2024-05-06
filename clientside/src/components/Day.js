@@ -17,8 +17,9 @@ export default function Day({ day, rowIdx }) {
   const {showSignIn,setDaySelected, setShowEventModal, filteredEvents, setSelectedEvent} = useContext(GlobalContext)
   
   useEffect(() => {
-    const events = filteredEvents.filter(evt => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY"))
-    setDayEvents(events)
+
+      const events = filteredEvents.filter(evt => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY"))
+      setDayEvents(events)
   }, [filteredEvents, day])
 
   function getCurrentDayClass() {

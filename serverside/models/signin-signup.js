@@ -19,8 +19,9 @@ const UserSchema = new Schema({
 const UserModel = mongoose.model("calendar events user", UserSchema)
 
 const EventSchema = new Schema({
-    savedEvents : {
-        type: Array
+    savedEvent : {
+        type: String,
+        required: [true, "Events are required"]
     }
 })
 

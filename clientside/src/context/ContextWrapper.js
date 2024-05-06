@@ -6,6 +6,7 @@ import axios from 'axios'
 function savedEventsReducer(state, {type, payload}){
   switch (type) {
     case 'push':
+      
       return [...state, payload]
     case 'update':
       return state.map(evt => evt.id === payload.id ? payload : evt )
@@ -16,7 +17,7 @@ function savedEventsReducer(state, {type, payload}){
   }
 }
 
- function initEvents() {
+function initEvents() {
 
   const storageEvents = localStorage.getItem('savedEvents')
   
@@ -34,32 +35,41 @@ export default function ContextWrapper(props) {
     const [showEventModal, setShowEventModal] = useState(false)
     const [selectedEvent, setSelectedEvent] = useState(null)
     const [labels, setLabels] = useState([])
-
+    const [userName, setUserName] = useState(null)
     const[showSignIn, setShowSignIn] = useState(true)
 
     //Second param of reducer is initial value
     const [savedEvents, dispatchCalEvent] = useReducer(savedEventsReducer, [], initEvents)
+    console.log(savedEvents)
     const filteredEvents = useMemo(() => {
+  
 
         return savedEvents.filter(evt => labels
             .filter((lbl) => lbl.checked).map(lbl => lbl.label).includes(evt.label));
+
     }, [savedEvents, labels])
 
     useEffect(()=>{
+
       localStorage.setItem('savedEvents', JSON.stringify(savedEvents))
       
     },[savedEvents])
 
+    
+
     useEffect(()=>{
-      setLabels((prevLabels) => {
-        return [...new Set( savedEvents.map(evt => evt.label))].map(label => {
-          const currentLabel = prevLabels.find(lbl => lbl.label === label)
-          return {
-            label,
-            checked: currentLabel ? currentLabel.checked : true
-          }
+      if(savedEvents){
+
+        setLabels((prevLabels) => {
+          return [...new Set( savedEvents.map(evt => evt.label))].map(label => {
+            const currentLabel = prevLabels.find(lbl => lbl.label === label)
+            return {
+              label,
+              checked: currentLabel ? currentLabel.checked : true
+            }
+          })
         })
-      })
+      }
     },[savedEvents])
 
     useEffect(()=>{
@@ -82,7 +92,7 @@ export default function ContextWrapper(props) {
     <GlobalContext.Provider value={{monthIndex,setMonthIndex,smallCalendarMonth,setSmallCalendarMonth,
     daySelected, setDaySelected, showEventModal, setShowEventModal, dispatchCalEvent,
     savedEvents, selectedEvent, setSelectedEvent, setLabels, labels, updateLabel
-    , filteredEvents, showSignIn, setShowSignIn}}>
+    , filteredEvents, showSignIn, setShowSignIn, userName, setUserName}}>
         {props.children}
     </GlobalContext.Provider>
   )

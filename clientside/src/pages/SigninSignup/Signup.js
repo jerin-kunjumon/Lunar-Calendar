@@ -39,9 +39,11 @@ const Signup = () => {
         axios
             .post("http://localhost:3000/api/users/signup", formData)
             .then((response) => {
+                console.log(response.data);
+                alert("Registration Successful");
+
                 setShowSignIn(false)
                 calendarPage();
-                console.log(response.data);
             })
             .catch((error) => {
                 console.error("There was an error!", error);
