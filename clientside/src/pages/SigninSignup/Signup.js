@@ -39,6 +39,8 @@ const Signup = () => {
         axios
             .post("http://localhost:3000/api/users/signup", formData)
             .then((response) => {
+                localStorage.setItem("userLoggedIn","true")
+
                 console.log(response.data);
                 alert("Registration Successful");
 

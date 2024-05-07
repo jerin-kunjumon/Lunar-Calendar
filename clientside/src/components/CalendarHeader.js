@@ -23,6 +23,20 @@ export default function CalendarHeader() {
             .then((response) => {
               alert("Logout Successful");
                 setShowSignIn(true)
+                localStorage.removeItem('userLoggedIn')
+                // axios.get("http://localhost:3000/api/users/profile", {
+                //   withCredentials:true,
+                //   // headers: {
+                //   //     Authorization: `Bearer ${response.data.token}`
+                //   //   }
+                //   }).then((response) => {
+                //       // console.log(response.data,"$dt")
+                //       // setUserName(response.data.name)
+                //       setShowSignIn(false)
+                //   })
+                //   .catch((error) => {
+                //       console.error("There was an error!", error);
+                //   });
             })
             .catch((error) => {
                 console.error("There was an error!", error);

@@ -16,19 +16,7 @@ const Calendar = () => {
         console.log(monthIndex)
         setCurrentMonth(getMonth(monthIndex));
 
-        axios.get("http://localhost:3000/api/users/profile", {
-            withCredentials:true,
-            // headers: {
-            //     Authorization: `Bearer ${response.data.token}`
-            //   }
-            }).then((response) => {
-                // console.log(response.data,"$dt")
-                // setUserName(response.data.name)
-                setShowSignIn(false)
-            })
-            .catch((error) => {
-                console.error("There was an error!", error);
-            });
+       
     }, [monthIndex]);
     return (
         <React.Fragment>

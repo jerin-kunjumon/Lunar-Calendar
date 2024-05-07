@@ -52,7 +52,12 @@ export default function ContextWrapper(props) {
     useEffect(()=>{
 
       localStorage.setItem('savedEvents', JSON.stringify(savedEvents))
-      
+      const loggedIn = localStorage.getItem('userLoggedIn');
+      if(loggedIn){
+        setShowSignIn(false)
+      }else{
+        setShowSignIn(true)
+      }
     },[savedEvents])
 
     

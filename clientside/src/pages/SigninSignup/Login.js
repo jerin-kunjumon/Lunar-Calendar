@@ -35,6 +35,8 @@ const Login = () => {
         axios
             .post("http://localhost:3000/api/users/login", formData)
             .then((response) => {
+            localStorage.setItem("userLoggedIn","true")
+
                 alert("Login Successful");
                 console.log(response);
                     

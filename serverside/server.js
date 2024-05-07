@@ -12,7 +12,7 @@ const app = express()
 const port = process.env.PORT || 3000 ;
 
 // app.use(cors())
-app.use(cors({credentials: true, origin: 'http://localhost:3001'}));
+app.use(cors({credentials: true, origin: true}));
 connectDB()
 
 app.use(express.json())
@@ -25,5 +25,12 @@ app.get('/',(req,res)=>res.send('server is ready'));
 
 app.use(notFound)
 app.use(errorHandler)
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+//     res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+//     res.header('Access-Control-Allow-Headers', 'content-type');
+//     res.header('Access-Control-Allow-Credentials', 'true');
+//     next();
+//   });
 app.listen(port,()=>console.log(`server started at ${port}`))
 
